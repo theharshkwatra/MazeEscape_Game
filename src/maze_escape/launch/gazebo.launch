@@ -1,0 +1,24 @@
+<?xml version="1.0"?>
+<launch>
+
+<param name="robot_description" command="xacro '$(find maze_escape)/urdf/rover.urdf.xacro'"/>    
+
+
+    <node pkg="robot_state_publisher" type="robot_state_publisher" name="robot_state_publisher"/> 
+    <node pkg="joint_state_publisher" type="joint_state_publisher" name="joint_state_publisher"/>   
+    <node pkg="teleop_twist_keyboard" type="teleop_twist_keyboard.py" name="teleop_twist_keyboard" output="screen"/>
+
+   <node name="spawn_urdf" pkg="gazebo_ros" type="spawn_model" args="-urdf -model robot -param robot_description"/>
+  
+  
+  <include file="$(find gazebo_ros)/launch/empty_world.launch">
+    <arg name="world_name" value="$(find maze_escape)/worlds/new_world.world"/>
+    <arg name="paused" value="false"/>
+    <arg name="use_sim_time" value="true"/>
+    <arg name="gui" value="true"/>
+    <arg name="headless" value="false"/>
+    <arg name="debug" value="false"/>
+  </include>
+
+</launch>
+ 
