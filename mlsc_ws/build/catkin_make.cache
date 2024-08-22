@@ -1,0 +1,2 @@
+maze_escape:respawn_bot
+-DCATKIN_DEVEL_PREFIX=/home/harry/mlsc_ws/devel -DCMAKE_INSTALL_PREFIX=/home/harry/mlsc_ws/install -G Unix Makefiles

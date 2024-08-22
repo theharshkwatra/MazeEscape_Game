@@ -1,0 +1,8 @@
+prefix=/home/harry/mlsc_ws/devel
+
+Name: maze_escape
+Description: Description of maze_escape
+Version: 0.0.0
+Cflags: 
+Libs: -L${prefix}/lib 
+Requires: 
