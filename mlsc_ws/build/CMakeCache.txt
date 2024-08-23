@@ -494,6 +494,12 @@ respawn_bot_BINARY_DIR:STATIC=/home/harry/mlsc_ws/build/respawn_bot
 //Value Computed by CMake
 respawn_bot_SOURCE_DIR:STATIC=/home/harry/mlsc_ws/src/respawn_bot
 
+//Value Computed by CMake
+robot_respawn_BINARY_DIR:STATIC=/home/harry/mlsc_ws/build/robot_respawn
+
+//Value Computed by CMake
+robot_respawn_SOURCE_DIR:STATIC=/home/harry/mlsc_ws/src/robot_respawn
+
 //The directory containing a CMake configuration file for rosconsole.
 rosconsole_DIR:PATH=/opt/ros/noetic/share/rosconsole/cmake
 
