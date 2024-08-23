@@ -132,7 +132,6 @@ if(NOT CMAKE_INSTALL_LOCAL_ONLY)
   # Include the install script for each subdirectory.
   include("/home/harry/mlsc_ws/build/gtest/cmake_install.cmake")
   include("/home/harry/mlsc_ws/build/maze_escape/cmake_install.cmake")
-  include("/home/harry/mlsc_ws/build/respawn_bot/cmake_install.cmake")
 
 endif()
 

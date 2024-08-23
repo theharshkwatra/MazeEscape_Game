@@ -7,6 +7,8 @@
     <node pkg="robot_state_publisher" type="robot_state_publisher" name="robot_state_publisher"/> 
     <node pkg="joint_state_publisher" type="joint_state_publisher" name="joint_state_publisher"/>   
     <node pkg="teleop_twist_keyboard" type="teleop_twist_keyboard.py" name="teleop_twist_keyboard" output="screen"/>
+    <node name="respawn_robot_node" pkg="maze_escape" type="respawn_robot.py" output="screen"/>
+    
 
    <node name="spawn_urdf" pkg="gazebo_ros" type="spawn_model" args="-urdf -model robot -param robot_description"/>
   
