@@ -9,6 +9,8 @@
     <node pkg="teleop_twist_keyboard" type="teleop_twist_keyboard.py" name="teleop_twist_keyboard" output="screen"/>
     <node name="respawn_robot_node" pkg="maze_escape" type="respawn_robot.py" output="screen"/>
     
+    <node name="key_respawner" pkg="maze_escape" type="key_respawner.py" output="screen"/>
+
 
    <node name="spawn_urdf" pkg="gazebo_ros" type="spawn_model" args="-urdf -model robot -param robot_description"/>
   
