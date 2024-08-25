@@ -6,7 +6,7 @@
 
     <node pkg="robot_state_publisher" type="robot_state_publisher" name="robot_state_publisher"/> 
     <node pkg="joint_state_publisher" type="joint_state_publisher" name="joint_state_publisher"/>   
-    <node pkg="teleop_twist_keyboard" type="teleop_twist_keyboard.py" name="teleop_twist_keyboard" output="screen"/>
+    <node pkg="maze_escape" type="wasd_teleop.py" name="wasd_teleop" output="screen"/>
     <node name="respawn_robot_node" pkg="maze_escape" type="respawn_robot.py" output="screen"/>
     
     <node name="key_respawner" pkg="maze_escape" type="key_respawner.py" output="screen"/>
