@@ -1,28 +1,25 @@
 <?xml version="1.0"?>
 <robot xmlns:xacro="http://www.ros.org/wiki/xacro" name="rover">
-<xacro:include filename="$(find maze_escape)/urdf/robot.gazebo" />
+  <xacro:include filename="$(find maze_escape)/urdf/robot.gazebo" />
 
-<xacro:property name="c1"       value="0.083"/>
-<xacro:property name="c2"       value="0.5"/>
-<xacro:property name="mass"     value="1"/>
-<xacro:property name="width"    value="0.8"/>
-<xacro:property name="height"   value="0.1"/>
-<xacro:property name="depth"    value="0.7 "/>
-<xacro:property name="radius"   value="0.15 "/>
+  <xacro:property name="c1" value="0.083"/>
+  <xacro:property name="c2" value="0.5"/>
+  <xacro:property name="mass" value="1"/>
+  <xacro:property name="width" value="0.8"/>
+  <xacro:property name="height" value="0.1"/>
+  <xacro:property name="depth" value="0.7 "/>
+  <xacro:property name="radius" value="0.15 "/>
 
+  <!--   #############   BODY    ############   -->
 
-<!--  	#############	BODY		############		 -->
-
-
-<!-- BASE LINK AND JOINT -->
-
+  <!-- BASE LINK AND JOINT -->
   <link name="base_footprint"/> 
 
   <link name="base_link">   
     <visual>
       <origin xyz="0 0 0" rpy="0.0 0.0 0.0"/>
       <geometry>
-        <box size="0.8 0.7 0.1" />
+        <box size="${width} ${depth} ${height}" />
       </geometry>
       <material name="DarkGrey">
         <color rgba="0.25 0.25 0.25 1.0"/>
@@ -31,7 +28,7 @@
     <collision>
       <origin xyz="0 0 0" rpy="0.0 0.0 0.0"/>
       <geometry>
-        <box size="0.8 0.7 0.1" />
+        <box size="${width} ${depth} ${height}" />
       </geometry>
     </collision>   
     <inertial>
@@ -43,55 +40,83 @@
     </inertial>
   </link>
 
-<joint name="base_joint" type="fixed">
-		<origin xyz="0 0 0.135" rpy="0 0 0" />
-		<parent link="base_footprint"/>
-		<child link="base_link" />
-	</joint>
+  <joint name="base_joint" type="fixed">
+    <origin xyz="0 0 0.135" rpy="0 0 0" />
+    <parent link="base_footprint"/>
+    <child link="base_link" />
+  </joint>
 
-
-<!--WHEEL LINKS AND JOINT -->
-
-<xacro:macro name="wheel" params="name x y">
+  <!-- WHEEL LINKS AND JOINT -->
+  <xacro:macro name="wheel" params="name x y">
     <link name="wheel_${name}_link">       
-        <inertial>
-            <origin xyz="0 0 0" rpy="0 0 0"/>
-            <mass value="0.25"/>
-            <inertia  ixx="${c2 * mass * (radius*radius)}" ixy="0.0" ixz="0.0" 
-                      iyy="${c2 * mass * (radius*radius)}" iyz="0.0" 
-                      izz="${c2 * mass * (radius*radius)}"/>
-        </inertial>
-        <visual name="wheel_${name}_visual">
-            <origin xyz="0 0 0" rpy="1.57 0.0 0.0"/>
-            <geometry>
-              <cylinder radius="0.15" length="0.1"/>            
-            </geometry>
-            <material name="LightGrey">
-              <color rgba="0.7 0.7 0.7 1.0"/>
-            </material>
-        </visual>       
-        <collision>
-            <origin xyz="0 0 0" rpy="1.57 0.0 0.0"/>
-            <geometry>
-              <cylinder radius="0.15" length="0.1"/>            
-            </geometry>
-        </collision>
+      <inertial>
+        <origin xyz="0 0 0" rpy="0 0 0"/>
+        <mass value="0.25"/>
+        <inertia  ixx="${c2 * mass * (radius*radius)}" ixy="0.0" ixz="0.0" 
+                  iyy="${c2 * mass * (radius*radius)}" iyz="0.0" 
+                  izz="${c2 * mass * (radius*radius)}"/>
+      </inertial>
+      <visual name="wheel_${name}_visual">
+        <origin xyz="0 0 0" rpy="1.57 0.0 0.0"/>
+        <geometry>
+          <cylinder radius="${radius}" length="${height}"/>            
+        </geometry>
+        <material name="LightGrey">
+          <color rgba="0.7 0.7 0.7 1.0"/>
+        </material>
+      </visual>       
+      <collision>
+        <origin xyz="0 0 0" rpy="1.57 0.0 0.0"/>
+        <geometry>
+          <cylinder radius="${radius}" length="${height}"/>            
+        </geometry>
+      </collision>
     </link>
     <joint name="wheel_${name}_joint" type="continuous">
-        <origin xyz="${x} ${y} 0" rpy="0 0 0"/>
-        <parent link="base_link"/>
-        <child link="wheel_${name}_link"/>
-        <axis xyz="0 1 0"/>
-        <limit velocity="100.0" effort="1000.0" />
-        <dynamics damping="1.0" friction="1.0"/>
+      <origin xyz="${x} ${y} 0" rpy="0 0 0"/>
+      <parent link="base_link"/>
+      <child link="wheel_${name}_link"/>
+      <axis xyz="0 1 0"/>
+      <limit velocity="100.0" effort="1000.0" />
+      <dynamics damping="1.0" friction="1.0"/>
     </joint>
-</xacro:macro>
+  </xacro:macro>
 
-<!-- Wheel Creating using macros -->
-<xacro:wheel name="rear_right"  x="0.250" y =" 0.40"/>
-<xacro:wheel name="front_right" x="-0.250" y =" 0.40"/>
-<xacro:wheel name="front_left"  x="-0.250" y =" -0.40"/>
-<xacro:wheel name="rear_left"   x="0.250" y =" -0.40"/>
+  <!-- Wheel Creating using macros -->
+  <xacro:wheel name="rear_right"  x="0.250" y="0.40"/>
+  <xacro:wheel name="front_right" x="-0.250" y="0.40"/>
+  <xacro:wheel name="front_left"  x="-0.250" y="-0.40"/>
+  <xacro:wheel name="rear_left"   x="0.250" y="-0.40"/>
 
+  <!-- HEADLIGHTS -->
+  <xacro:macro name="headlight" params="name x y z">
+    <link name="headlight_${name}_link">
+      <visual>
+        <origin xyz="${x} ${y} ${z}" rpy="0 0 0"/>
+        <geometry>
+          <cylinder radius="0.1" length="0.15"/> <!-- Increased size -->
+        </geometry>
+        <material name="White">
+          <color rgba="1.0 1.0 1.0 1.0"/>
+        </material>
+      </visual>
+      <collision>
+        <origin xyz="${x} ${y} ${z}" rpy="0 0 0"/>
+        <geometry>
+          <cylinder radius="0.1" length="0.15"/> <!-- Increased size -->
+        </geometry>
+      </collision>
+    </link>
+    <joint name="headlight_${name}_joint" type="fixed">
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <parent link="base_link"/> <!-- Changed parent to base_link -->
+      <child link="headlight_${name}_link"/>
+    </joint>
+  </xacro:macro>
+
+  <!-- Adding Headlights on the original side with increased size -->
+  <xacro:headlight name="left" x="-0.4" y="0.25" z="0.05"/>
+  <xacro:headlight name="right" x="-0.4" y="-0.25" z="0.05"/>
 
 </robot>
+

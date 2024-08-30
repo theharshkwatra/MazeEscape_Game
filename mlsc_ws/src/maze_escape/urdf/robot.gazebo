@@ -4,7 +4,7 @@
 	
 <!-- #####		DIFFERENTIAL DRIVE		##### -->
 
-	<!-- <gazebo>
+	<gazebo>
 		<plugin name="differential_drive_controller" filename="libgazebo_ros_diff_drive.so">
 			<legacyMode>false</legacyMode>
 			<alwaysOn>true</alwaysOn>
@@ -27,49 +27,41 @@
 			<publishTf>1</publishTf>
 			<publishOdomTF>true</publishOdomTF>
 		</plugin>
-	</gazebo> -->
-
-
+	</gazebo>
 
 <!-- #####	HOKUYO LASER	##### -->
 
-  <gazebo reference="hokuyo_link">
-    <sensor type="ray" name="head_hokuyo_sensor">
-      <pose>0 0 0 0 0 0</pose>
-      <visualize>true</visualize>
-      <update_rate>60</update_rate>
-      <ray>
-        <scan>
-          <horizontal>
-            <samples>720</samples>
-            <resolution>1</resolution>
-            <min_angle>-3.1415</min_angle>
-            <max_angle>3.1415</max_angle>
-          </horizontal>
-        </scan>
-        <range>
-          <min>0.10</min>
-          <max>12.0</max>
-          <resolution>0.01</resolution>
-        </range>
-        <noise>
-          <type>gaussian</type>
-          <!-- Noise parameters based on published spec for Hokuyo laser
-               achieving "+-30mm" accuracy at range < 10m.  A mean of 0.0m and
-               stddev of 0.01m will put 99.7% of samples within 0.03m of the true
-               reading. -->
-          <mean>0.0</mean>
-          <stddev>0.01</stddev>
-        </noise>
-      </ray>
-      <plugin name="gazebo_ros_head_hokuyo_controller" filename="libgazebo_ros_laser.so">
-        <topicName>scan</topicName>
-        <frameName>hokuyo_link</frameName>
-      </plugin>
-    </sensor>
-  </gazebo>
-
-
+	<gazebo reference="hokuyo_link">
+		<sensor type="ray" name="head_hokuyo_sensor">
+			<pose>0 0 0 0 0 0</pose>
+			<visualize>true</visualize>
+			<update_rate>60</update_rate>
+			<ray>
+				<scan>
+					<horizontal>
+						<samples>720</samples>
+						<resolution>1</resolution>
+						<min_angle>-3.1415</min_angle>
+						<max_angle>3.1415</max_angle>
+					</horizontal>
+				</scan>
+				<range>
+					<min>0.10</min>
+					<max>12.0</max>
+					<resolution>0.01</resolution>
+				</range>
+				<noise>
+					<type>gaussian</type>
+					<mean>0.0</mean>
+					<stddev>0.01</stddev>
+				</noise>
+			</ray>
+			<plugin name="gazebo_ros_head_hokuyo_controller" filename="libgazebo_ros_laser.so">
+				<topicName>scan</topicName>
+				<frameName>hokuyo_link</frameName>
+			</plugin>
+		</sensor>
+	</gazebo>
 
 <!-- #####	SKID STEER	##### -->
 
@@ -87,26 +79,24 @@
 			<torque>10</torque>
 			<topicName>cmd_vel</topicName>
 			<odometryTopic>odom</odometryTopic>
-      		<odometryFrame>odom</odometryFrame>
+			<odometryFrame>odom</odometryFrame>
 			<commandTopic>cmd_vel</commandTopic>
-      		<topic_name_twist>cmd_vel</topic_name_twist>
-      		<topic_name_odometry>odom</topic_name_odometry>
-      		<topic_name_joint>joint</topic_name_joint>
+			<topic_name_twist>cmd_vel</topic_name_twist>
+			<topic_name_odometry>odom</topic_name_odometry>
+			<topic_name_joint>joint</topic_name_joint>
 			<broadcastTF>true</broadcastTF>
 			<covariance_x>0.0001</covariance_x>
-      		<covariance_y>0.0001</covariance_y>
-      		<covariance_yaw>0.01</covariance_yaw>
+			<covariance_y>0.0001</covariance_y>
+			<covariance_yaw>0.01</covariance_yaw>
 		</plugin>
 	</gazebo>
 
-	
-
 <!-- #####	CAMERAS	##### -->
 
-			<!-- Top camera -->
-<gazebo reference="camera_link_top">
-		<sensor type="camera" name="camerfalsea_top">
-		    <visualize>true</visualize>
+	<!-- Top camera -->
+	<gazebo reference="camera_link_top">
+		<sensor type="camera" name="camera_top">
+			<visualize>true</visualize>
 			<update_rate>30.0</update_rate>
 			<camera name="head">
 				<horizontal_fov>1.3962634</horizontal_fov>
@@ -121,7 +111,6 @@
 				</clip>
 				<noise>
 					<type>gaussian</type>
-				
 					<mean>0.0</mean>
 					<stddev>0.007</stddev>
 				</noise>
@@ -143,29 +132,71 @@
 		</sensor>
 	</gazebo>	
 
-
 <!-- #####	OTHER SENSORS		##### -->
 
-<!-- IMU -->
-  <gazebo reference="imu_link">
-    <gravity>true</gravity>
-    <sensor name="imu_sensor" type="imu">
-      <always_on>true</always_on>
-      <update_rate>100</update_rate>
-      <visualize>true</visualize>
-      <topic>__default_topic__</topic>
-      <plugin filename="libgazebo_ros_imu_sensor.so" name="imu_plugin">
-        <topicName>imu</topicName>
-        <bodyName>imu_link</bodyName>
-        <updateRateHZ>10.0</updateRateHZ>
-        <gaussianNoise>0.0</gaussianNoise>
-        <xyzOffset>0 0 0</xyzOffset>
-        <rpyOffset>0 0 0</rpyOffset>
-        <frameName>imu_link</frameName>
-        <initialOrientationAsReference>false</initialOrientationAsReference>
-      </plugin>
-      <pose>0 0 0 0 0 0</pose>
-    </sensor>
-  </gazebo>
+	<!-- IMU -->
+	<gazebo reference="imu_link">
+		<gravity>true</gravity>
+		<sensor name="imu_sensor" type="imu">
+			<always_on>true</always_on>
+			<update_rate>100</update_rate>
+			<visualize>true</visualize>
+			<topic>__default_topic__</topic>
+			<plugin filename="libgazebo_ros_imu_sensor.so" name="imu_plugin">
+				<topicName>imu</topicName>
+				<bodyName>imu_link</bodyName>
+				<updateRateHZ>10.0</updateRateHZ>
+				<gaussianNoise>0.0</gaussianNoise>
+				<xyzOffset>0 0 0</xyzOffset>
+				<rpyOffset>0 0 0</rpyOffset>
+				<frameName>imu_link</frameName>
+				<initialOrientationAsReference>false</initialOrientationAsReference>
+			</plugin>
+			<pose>0 0 0 0 0 0</pose>
+		</sensor>
+	</gazebo>
 
+<!-- #####	BUMPER SENSOR	##### -->
+
+	<gazebo reference="bumper_link">
+		<sensor type="contact" name="bumper_sensor">
+			<update_rate>30.0</update_rate>
+			<plugin name="gazebo_ros_bumper_plugin" filename="libgazebo_ros_bumper.so">
+				<bumperTopicName>bumper_data</bumperTopicName>
+				<frameName>bumper_link</frameName>
+			</plugin>
+		</sensor>
+	</gazebo>
+
+<!-- #####	HEADLIGHTS	##### -->
+
+	<gazebo reference="headlight_link_left">
+		<light name="headlight_left" type="point">
+			<diffuse>1 1 1 1</diffuse>
+			<specular>0.1 0.1 0.1 1</specular>
+			<attenuation>
+				<range>30</range> <!-- Increased range -->
+				<constant>0.5</constant>
+				<linear>0.01</linear>
+				<quadratic>0.001</quadratic>
+			</attenuation>
+			<pose>-0.1 0 0 0 0 0</pose> <!-- Moved to the opposite side -->
+		</light>
+	</gazebo>
+
+	<gazebo reference="headlight_link_right">
+		<light name="headlight_right" type="point">
+			<diffuse>1 1 1 1</diffuse>
+			<specular>0.1 0.1 0.1 1</specular>
+			<attenuation>
+				<range>30</range> <!-- Increased range -->
+				<constant>0.5</constant>
+				<linear>0.01</linear>
+				<quadratic>0.001</quadratic>
+			</attenuation>
+			<pose>-0.1 0 0 0 0 0</pose> <!-- Moved to the opposite side -->
+		</light>
+	</gazebo>
+	
 </robot>
+
