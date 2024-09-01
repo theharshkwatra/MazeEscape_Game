@@ -47,7 +47,7 @@ def monitor_and_respawn():
     # Goal positions
     goal_positions = [
         {'x': 8.995692, 'y': -8.912122, 'z': 0.499997},  # Original goal position
-        {'x': -8.997778, 'y': -8.475602, 'z': 0.499997}  # New goal position
+        {'x': 0.183494, 'y': 9.016062, 'z': 0.499993}  # New goal position
     ]
     position_tolerance = 1.0  
 
